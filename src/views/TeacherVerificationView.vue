@@ -2,10 +2,10 @@
   <AdminLayout>
     <div class="teacher-verification-view">
       <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold">教师资质审核</h1>
+        <h1 class="text-2xl font-bold text-gray-100">教师资质审核</h1>
         <router-link
           to="/teachers"
-          class="px-4 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 transition duration-200"
+          class="px-4 py-2 rounded-md bg-gray-700 text-gray-200 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 transition duration-200"
         >
           返回教师列表
         </router-link>
@@ -17,11 +17,11 @@
       </div>
 
       <!-- 未找到教师 -->
-      <div v-else-if="!teacher" class="bg-white p-10 rounded-lg shadow-sm border border-gray-100 text-center">
-        <p class="text-gray-500 mb-4">未找到教师信息</p>
+      <div v-else-if="!teacher" class="bg-gray-800 p-10 rounded-lg shadow-md border border-gray-700 text-center">
+        <p class="text-gray-400 mb-4">未找到教师信息</p>
         <router-link
           to="/teachers"
-          class="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200"
+          class="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200"
         >
           返回教师列表
         </router-link>
@@ -31,71 +31,71 @@
       <div v-else class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <!-- 左侧：基本信息 -->
         <div class="lg:col-span-2">
-          <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6 mb-6">
-            <h2 class="text-xl font-bold mb-4 pb-2 border-b">基本信息</h2>
+          <div class="bg-gray-800 rounded-lg shadow-md border border-gray-700 p-6 mb-6">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b border-gray-600 text-gray-100">基本信息</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <p class="text-sm text-gray-500 mb-1">教师ID</p>
-                <p class="font-medium">{{ teacher.tutorId || teacher._id }}</p>
+                <p class="text-sm text-gray-400 mb-1">教师ID</p>
+                <p class="font-medium text-gray-200">{{ teacher.tutorId || teacher._id }}</p>
               </div>
               <div>
-                <p class="text-sm text-gray-500 mb-1">姓名</p>
-                <p class="font-medium">{{ teacher.name || '未设置' }}</p>
+                <p class="text-sm text-gray-400 mb-1">姓名</p>
+                <p class="font-medium text-gray-200">{{ teacher.name || '未设置' }}</p>
               </div>
               <div>
-                <p class="text-sm text-gray-500 mb-1">电话</p>
-                <p class="font-medium">{{ teacher.phone || '未设置' }}</p>
+                <p class="text-sm text-gray-400 mb-1">电话</p>
+                <p class="font-medium text-gray-200">{{ teacher.phone || '未设置' }}</p>
               </div>
               <div>
-                <p class="text-sm text-gray-500 mb-1">邮箱</p>
-                <p class="font-medium">{{ teacher.email || '未设置' }}</p>
+                <p class="text-sm text-gray-400 mb-1">邮箱</p>
+                <p class="font-medium text-gray-200">{{ teacher.email || '未设置' }}</p>
               </div>
               <div>
-                <p class="text-sm text-gray-500 mb-1">地区</p>
-                <p class="font-medium">{{ formatLocation(teacher) }}</p>
+                <p class="text-sm text-gray-400 mb-1">地区</p>
+                <p class="font-medium text-gray-200">{{ formatLocation(teacher) }}</p>
               </div>
               <div>
-                <p class="text-sm text-gray-500 mb-1">注册时间</p>
-                <p class="font-medium">{{ formatDate(teacher.createdAt) }}</p>
+                <p class="text-sm text-gray-400 mb-1">注册时间</p>
+                <p class="font-medium text-gray-200">{{ formatDate(teacher.createdAt) }}</p>
               </div>
             </div>
           </div>
 
-          <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6 mb-6">
-            <h2 class="text-xl font-bold mb-4 pb-2 border-b">教学信息</h2>
+          <div class="bg-gray-800 rounded-lg shadow-md border border-gray-700 p-6 mb-6">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b border-gray-600 text-gray-100">教学信息</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <p class="text-sm text-gray-500 mb-1">科目</p>
-                <p class="font-medium">{{ formatSubjects(teacher.subjects) }}</p>
+                <p class="text-sm text-gray-400 mb-1">科目</p>
+                <p class="font-medium text-gray-200">{{ formatSubjects(teacher.subjects) }}</p>
               </div>
               <div>
-                <p class="text-sm text-gray-500 mb-1">年级</p>
-                <p class="font-medium">{{ formatGrades(teacher.grades) }}</p>
+                <p class="text-sm text-gray-400 mb-1">年级</p>
+                <p class="font-medium text-gray-200">{{ formatGrades(teacher.grades) }}</p>
               </div>
               <div>
-                <p class="text-sm text-gray-500 mb-1">教学经验</p>
-                <p class="font-medium">{{ teacher.experience || '未设置' }}</p>
+                <p class="text-sm text-gray-400 mb-1">教学经验</p>
+                <p class="font-medium text-gray-200">{{ teacher.experience || '未设置' }}</p>
               </div>
               <div>
-                <p class="text-sm text-gray-500 mb-1">时薪</p>
-                <p class="font-medium">{{ teacher.hourlyRate ? `¥${teacher.hourlyRate}` : '未设置' }}</p>
+                <p class="text-sm text-gray-400 mb-1">时薪</p>
+                <p class="font-medium text-gray-200">{{ teacher.hourlyRate ? `¥${teacher.hourlyRate}` : '未设置' }}</p>
               </div>
             </div>
           </div>
 
-          <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6 mb-6">
-            <h2 class="text-xl font-bold mb-4 pb-2 border-b">资质信息</h2>
+          <div class="bg-gray-800 rounded-lg shadow-md border border-gray-700 p-6 mb-6">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b border-gray-600 text-gray-100">资质信息</h2>
             <div class="grid grid-cols-1 gap-6">
               <div>
-                <p class="text-sm text-gray-500 mb-1">教育背景</p>
-                <p class="font-medium">{{ teacher.education || '未提供' }}</p>
+                <p class="text-sm text-gray-400 mb-1">教育背景</p>
+                <p class="font-medium text-gray-200">{{ teacher.education || '未提供' }}</p>
               </div>
               <div>
-                <p class="text-sm text-gray-500 mb-1">自我介绍</p>
-                <p class="font-medium">{{ teacher.introduction || '未提供' }}</p>
+                <p class="text-sm text-gray-400 mb-1">自我介绍</p>
+                <p class="font-medium text-gray-200">{{ teacher.introduction || '未提供' }}</p>
               </div>
               <div>
-                <p class="text-sm text-gray-500 mb-1">证书</p>
+                <p class="text-sm text-gray-400 mb-1">证书</p>
                 <div v-if="teacher.certificates && teacher.certificates.length" class="grid grid-cols-2 md:grid-cols-3 gap-4 mt-2">
                   <div v-for="(cert, index) in teacher.certificates" :key="index" class="certificate-item">
                     <img 
@@ -114,65 +114,65 @@
 
         <!-- 右侧：状态和操作 -->
         <div class="lg:col-span-1">
-          <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6 mb-6 sticky top-6">
-            <h2 class="text-xl font-bold mb-4 pb-2 border-b">状态信息</h2>
+          <div class="bg-gray-800 rounded-lg shadow-md border border-gray-700 p-6 mb-6 sticky top-6">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b border-gray-600 text-gray-100">状态信息</h2>
             <div class="mb-6">
               <div class="flex items-center justify-between mb-3">
-                <p class="text-sm text-gray-500">账号状态</p>
+                <p class="text-sm text-gray-400">账号状态</p>
                 <span 
-                  class="px-2 py-0.5 rounded-full text-xs"
+                  class="px-2 py-0.5 rounded-full text-xs font-medium"
                   :class="{
-                    'bg-green-100 text-green-800': teacher.status === 'active',
-                    'bg-gray-100 text-gray-800': teacher.status === 'inactive',
-                    'bg-red-100 text-red-800': teacher.status === 'suspended'
+                    'bg-green-700 text-green-100': teacher.status === 'active',
+                    'bg-gray-600 text-gray-200': teacher.status === 'inactive',
+                    'bg-red-700 text-red-100': teacher.status === 'suspended'
                   }"
                 >
                   {{ statusMap[teacher.status]?.text || teacher.status }}
                 </span>
               </div>
               <div class="flex items-center justify-between mb-3">
-                <p class="text-sm text-gray-500">认证状态</p>
+                <p class="text-sm text-gray-400">认证状态</p>
                 <span 
-                  class="px-2 py-0.5 rounded-full text-xs"
-                  :class="teacher.verified ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'"
+                  class="px-2 py-0.5 rounded-full text-xs font-medium"
+                  :class="teacher.verified ? 'bg-green-700 text-green-100' : 'bg-yellow-700 text-yellow-100'"
                 >
                   {{ teacher.verified ? '已认证' : '未认证' }}
                 </span>
               </div>
               <div class="mb-3">
-                <p class="text-sm text-gray-500 mb-1">认证时间</p>
-                <p class="font-medium">{{ formatDate(teacher.verifiedAt) }}</p>
+                <p class="text-sm text-gray-400 mb-1">认证时间</p>
+                <p class="font-medium text-gray-200">{{ formatDate(teacher.verifiedAt) }}</p>
               </div>
               <div class="mb-3">
-                <p class="text-sm text-gray-500 mb-1">认证备注</p>
-                <p class="font-medium">{{ teacher.verificationNote || '无' }}</p>
+                <p class="text-sm text-gray-400 mb-1">认证备注</p>
+                <p class="font-medium text-gray-200">{{ teacher.verificationNote || '无' }}</p>
               </div>
             </div>
 
-            <h2 class="text-xl font-bold mb-4 pb-2 border-b">认证操作</h2>
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b border-gray-600 text-gray-100">认证操作</h2>
             <div class="mb-4">
-              <label class="block text-sm font-medium text-gray-600 mb-2">认证状态</label>
+              <label class="block text-sm font-medium text-gray-300 mb-2">认证状态</label>
               <select
                 v-model="verificationStatus"
-                class="w-full border border-gray-300 rounded-md px-3 py-2 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+                class="w-full border border-gray-600 rounded-md px-3 py-2 bg-gray-700 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
               >
                 <option :value="true">已认证</option>
                 <option :value="false">未认证</option>
               </select>
             </div>
             <div class="mb-4">
-              <label class="block text-sm font-medium text-gray-600 mb-2">认证备注</label>
+              <label class="block text-sm font-medium text-gray-300 mb-2">认证备注</label>
               <textarea
                 v-model="verificationNote"
                 rows="4"
-                class="w-full border border-gray-300 rounded-md px-3 py-2 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+                class="w-full border border-gray-600 rounded-md px-3 py-2 bg-gray-700 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
                 placeholder="输入认证备注信息..."
               ></textarea>
             </div>
             <div class="flex justify-end">
               <button
                 @click="submitVerification"
-                class="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200"
+                class="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200"
                 :disabled="loading"
               >
                 {{ loading ? '处理中...' : '提交认证结果' }}
@@ -344,17 +344,32 @@ function formatGrades(grades) {
 </script>
 
 <style scoped>
-.loader {
-  border: 4px solid rgba(0, 0, 0, 0.1);
-  border-left-color: #3498db;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  animation: spin 1s linear infinite;
-}
+  .loader {
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-left-color: #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+  }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .certificate-item {
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.375rem;
+    overflow: hidden;
+  }
+
+  .certificate-item:hover {
+    transform: scale(1.03);
+    border-color: rgba(59, 130, 246, 0.5);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+  }
 </style>

@@ -2,10 +2,13 @@ import axios from 'axios'
 
 // 创建 axios 实例
 const api = axios.create({
-  baseURL: 'http://localhost:3000/api',
-  timeout: 10000,
+  // 使用完整的后端URL直接访问，不通过代理
+  baseURL: 'https://smart-tutor-server-seven.vercel.app/api',
+  timeout: 15000, // 超时时间
   headers: {
     'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Origin': typeof window !== 'undefined' ? window.location.origin : 'http://localhost:5173',
   },
 })
 

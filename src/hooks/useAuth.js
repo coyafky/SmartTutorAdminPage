@@ -17,17 +17,36 @@ export function useAuth() {
     error.value = null
 
     try {
-      const response = await api.post('/auth/login', credentials)
+      // 使用原生fetch直接访问后端
+      const response = await fetch('https://smart-tutor-server-seven.vercel.app/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Origin': window.location.origin
+        },
+        body: JSON.stringify(credentials)
+      })
+      
+      // 处理响应
+      const data = await response.json()
+      console.log('登录响应:', data) // 调试输出
       
       // 如果登录成功，保存用户信息和token到本地存储
-      if (response.status === 'success' && response.data) {
-        localStorage.setItem('admin_token', response.data.token)
-        localStorage.setItem('admin_user', JSON.stringify(response.data.user))
-        return { success: true, user: response.data.user }
-      } else {
-        throw new Error(response.message || '登录失败')
+      if (data.status === 'success' && data.data) {
+        const token = data.data.token || data.token
+        const user = data.data.user || data.user
+        
+        if (token) {
+          localStorage.setItem('admin_token', token)
+          localStorage.setItem('admin_user', JSON.stringify(user))
+          return { success: true, user: user }
+        }
       }
+      
+      throw new Error(data.message || '登录失败')
     } catch (err) {
+      console.error('登录错误:', err)
       error.value = err.message || '登录失败，请检查用户名和密码'
       return { success: false, message: error.value }
     } finally {

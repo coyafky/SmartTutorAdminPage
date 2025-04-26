@@ -1,41 +1,42 @@
 <template>
   <div
-    class="post-item bg-white rounded-lg shadow-sm border border-gray-100 p-4 mb-4 hover:shadow-md transition-shadow duration-200"
+    class="post-item bg-gray-800 rounded-lg shadow-sm border border-gray-700 p-4 mb-4 hover:shadow-md transition-shadow duration-200"
   >
     <div class="flex justify-between">
       <div class="post-header">
-        <h3 class="text-lg font-medium text-gray-800">请求ID: {{ post.requestId || post._id }}</h3>
+        <h3 class="text-lg fo
+        nt-medium text-gray-300">请求ID: {{ post.requestId || post._id }}</h3>
         <div class="flex items-center mt-1">
           <StatusBadge :status="post.status" />
           <span class="text-gray-500 text-sm ml-2">{{ formatDate(post.createdAt) }}</span>
         </div>
       </div>
-      <div class="post-actions">
-        <button
-          @click="$emit('review', post)"
-          class="text-blue-600 hover:text-blue-800 transition-colors duration-200"
+      <div class="post-actions flex space-x-4">
+        <router-link 
+          :to="{ name: 'post-detail', params: { id: post.requestId } }"
+          class="text-blue-500 hover:text-blue-400 transition-colors duration-200"
         >
-          查看详情
-        </button>
+          详情页
+        </router-link>
       </div>
     </div>
 
     <div class="post-content mt-3 grid grid-cols-2 gap-x-4 gap-y-2">
       <div class="flex items-center">
-        <span class="text-gray-500 mr-2">地区:</span>
-        <span class="text-gray-800">{{ formatLocation(post.location) }}</span>
+        <span class="text-gray-400 mr-2">地区:</span>
+        <span class="text-gray-300">{{ formatLocation(post.location) }}</span>
       </div>
       <div class="flex items-center">
-        <span class="text-gray-500 mr-2">科目:</span>
-        <span class="text-gray-800">{{ formatSubjects(post.subjects) }}</span>
+        <span class="text-gray-400 mr-2">科目:</span>
+        <span class="text-gray-300">{{ formatSubjects(post.subjects) }}</span>
       </div>
       <div class="flex items-center">
-        <span class="text-gray-500 mr-2">年级:</span>
-        <span class="text-gray-800">{{ formatGrade(post.grade) }}</span>
+        <span class="text-gray-400 mr-2">年级:</span>
+        <span class="text-gray-300">{{ formatGrade(post.grade) }}</span>
       </div>
       <div class="flex items-center">
-        <span class="text-gray-500 mr-2">预算:</span>
-        <span class="text-gray-800">{{ formatBudget(post.preferences?.budget) }}</span>
+        <span class="text-gray-400 mr-2">预算:</span>
+        <span class="text-gray-300">{{ formatBudget(post.preferences?.budget) }}</span>
       </div>
     </div>
   </div>

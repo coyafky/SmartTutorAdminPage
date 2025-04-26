@@ -4,13 +4,13 @@
       <h1 class="text-2xl font-bold mb-6">帖子管理</h1>
 
       <!-- 筛选和搜索区域 -->
-      <div class="filter-section bg-white p-6 rounded-lg shadow-sm mb-6 border border-gray-100">
+      <div class="filter-section bg-gray-800 p-6 rounded-lg shadow-sm mb-6 border border-gray-700">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
           <div>
-            <label class="block text-sm font-medium text-gray-600 mb-2">状态</label>
+            <label class="block text-sm font-medium text-gray-300 mb-2">状态</label>
             <select
               v-model="filters.status"
-              class="w-full border border-gray-300 rounded-md px-3 py-2 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+              class="w-full border border-gray-600 rounded-md px-3 py-2 bg-gray-700 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
             >
               <option value="">全部状态</option>
               <option value="pending">待审核</option>
@@ -20,10 +20,10 @@
           </div>
 
           <div>
-            <label class="block text-sm font-medium text-gray-600 mb-2">排序</label>
+            <label class="block text-sm font-medium text-gray-300 mb-2">排序</label>
             <select
               v-model="filters.sort"
-              class="w-full border border-gray-300 rounded-md px-3 py-2 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+              class="w-full border border-gray-600 rounded-md px-3 py-2 bg-gray-700 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
             >
               <option value="newest">最新优先</option>
               <option value="oldest">最早优先</option>
@@ -31,19 +31,19 @@
           </div>
 
           <div>
-            <label class="block text-sm font-medium text-gray-600 mb-2">城市</label>
+            <label class="block text-sm font-medium text-gray-300 mb-2">城市</label>
             <input
               v-model="filters.city"
               type="text"
               placeholder="输入城市名称"
-              class="w-full border border-gray-300 rounded-md px-3 py-2 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+              class="w-full border border-gray-600 rounded-md px-3 py-2 bg-gray-700 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
             />
           </div>
 
           <div class="flex items-end space-x-3">
             <button
               @click="resetFilters"
-              class="px-4 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 transition duration-200"
+              class="px-4 py-2 rounded-md bg-gray-700 text-gray-300 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 transition duration-200"
             >
               重置
             </button>
@@ -70,8 +70,8 @@
         <p class="mt-3 text-gray-600">加载中...</p>
       </div>
 
-      <div v-else-if="posts.length === 0" class="text-center py-16 bg-white rounded-lg shadow-sm border border-gray-100">
-        <p class="text-gray-500 text-lg">暂无帖子数据</p>
+      <div v-else-if="posts.length === 0" class="text-center py-16 bg-gray-800 rounded-lg shadow-sm border border-gray-700">
+        <p class="text-gray-400 text-lg">暂无帖子数据</p>
       </div>
 
       <div v-else class="posts-list space-y-5">
@@ -91,8 +91,8 @@
           :class="[
             'px-3 py-1 rounded-md mr-2',
             pagination.page === 1
-              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-              : 'bg-gray-200 text-gray-700 hover:bg-gray-300',
+              ? 'bg-gray-700 text-gray-500 cursor-not-allowed'
+              : 'bg-gray-700 text-gray-300 hover:bg-gray-600',
           ]"
         >
           上一页
@@ -106,7 +106,7 @@
               'px-3 py-1 rounded-md',
               pagination.page === page
                 ? 'bg-blue-600 text-white'
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300',
+                : 'bg-gray-700 text-gray-300 hover:bg-gray-600',
             ]"
           >
             {{ page }}
@@ -120,8 +120,8 @@
           :class="[
             'px-3 py-1 rounded-md ml-2',
             pagination.page === pagination.pages
-              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-              : 'bg-gray-200 text-gray-700 hover:bg-gray-300',
+              ? 'bg-gray-700 text-gray-500 cursor-not-allowed'
+              : 'bg-gray-700 text-gray-300 hover:bg-gray-600',
           ]"
         >
           下一页
@@ -132,12 +132,12 @@
     <!-- 帖子详情弹窗 -->
     <div
       v-if="showPostDetails"
-      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
     >
-      <div class="bg-white rounded-lg shadow-lg w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+      <div class="bg-gray-800 rounded-lg shadow-lg w-full max-w-4xl max-h-[90vh] overflow-y-auto border border-gray-700">
         <div class="p-6">
           <div class="flex justify-between items-center mb-4">
-            <h2 class="text-xl font-bold">帖子详情</h2>
+            <h2 class="text-xl font-bold text-gray-200">帖子详情</h2>
             <button @click="showPostDetails = false" class="text-gray-500 hover:text-gray-700">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -157,11 +157,11 @@
           </div>
 
           <div v-if="!currentPost" class="text-center py-8">
-            <p class="text-gray-600">无法加载帖子详情</p>
+            <p class="text-gray-400">无法加载帖子详情</p>
           </div>
 
           <div v-else>
-            <div class="mb-4 pb-4 border-b border-gray-200">
+            <div class="mb-4 pb-4 border-b border-gray-700">
               <div class="flex items-center mb-2">
                 <span
                   :class="[
@@ -191,43 +191,43 @@
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <h3 class="text-sm font-medium text-gray-500">请求ID</h3>
-                  <p>{{ currentPost.requestId }}</p>
+                  <h3 class="text-sm font-medium text-gray-400">请求ID</h3>
+                  <p class="text-gray-300">{{ currentPost.requestId }}</p>
                 </div>
                 <div>
-                  <h3 class="text-sm font-medium text-gray-500">家长ID</h3>
-                  <p>{{ currentPost.parentId }}</p>
+                  <h3 class="text-sm font-medium text-gray-400">家长ID</h3>
+                  <p class="text-gray-300">{{ currentPost.parentId }}</p>
                 </div>
                 <div>
-                  <h3 class="text-sm font-medium text-gray-500">学生ID</h3>
-                  <p>{{ currentPost.childId || '未指定' }}</p>
+                  <h3 class="text-sm font-medium text-gray-400">学生ID</h3>
+                  <p class="text-gray-300">{{ currentPost.childId || '未指定' }}</p>
                 </div>
                 <div>
-                  <h3 class="text-sm font-medium text-gray-500">年级</h3>
-                  <p>{{ currentPost.grade }}</p>
+                  <h3 class="text-sm font-medium text-gray-400">年级</h3>
+                  <p class="text-gray-300">{{ currentPost.grade }}</p>
                 </div>
               </div>
             </div>
 
-            <div class="mb-4 pb-4 border-b border-gray-200">
+            <div class="mb-4 pb-4 border-b border-gray-700">
               <h3 class="text-lg font-medium mb-2">地址信息</h3>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <h3 class="text-sm font-medium text-gray-500">城市</h3>
-                  <p>{{ currentPost.location?.city || '未知' }}</p>
+                  <h3 class="text-sm font-medium text-gray-400">城市</h3>
+                  <p class="text-gray-300">{{ currentPost.location?.city || '未知' }}</p>
                 </div>
                 <div>
-                  <h3 class="text-sm font-medium text-gray-500">区域</h3>
-                  <p>{{ currentPost.location?.district || '未知' }}</p>
+                  <h3 class="text-sm font-medium text-gray-400">区域</h3>
+                  <p class="text-gray-300">{{ currentPost.location?.district || '未知' }}</p>
                 </div>
                 <div class="col-span-2">
-                  <h3 class="text-sm font-medium text-gray-500">详细地址</h3>
-                  <p>{{ currentPost.location?.address || '未知' }}</p>
+                  <h3 class="text-sm font-medium text-gray-400">详细地址</h3>
+                  <p class="text-gray-300">{{ currentPost.location?.address || '未知' }}</p>
                 </div>
               </div>
             </div>
 
-            <div class="mb-4 pb-4 border-b border-gray-200">
+            <div class="mb-4 pb-4 border-b border-gray-700">
               <h3 class="text-lg font-medium mb-2">科目信息</h3>
               <div
                 v-if="currentPost.subjects && currentPost.subjects.length > 0"
@@ -236,63 +236,63 @@
                 <div
                   v-for="(subject, index) in currentPost.subjects"
                   :key="index"
-                  class="bg-gray-50 p-3 rounded"
+                  class="bg-gray-700 p-3 rounded"
                 >
                   <div class="grid grid-cols-1 md:grid-cols-4 gap-2">
                     <div>
-                      <h3 class="text-sm font-medium text-gray-500">科目</h3>
-                      <p>{{ subject.name }}</p>
+                      <h3 class="text-sm font-medium text-gray-400">科目</h3>
+                      <p class="text-gray-300">{{ subject.name }}</p>
                     </div>
                     <div>
-                      <h3 class="text-sm font-medium text-gray-500">当前分数</h3>
-                      <p>{{ subject.currentScore }}</p>
+                      <h3 class="text-sm font-medium text-gray-400">当前分数</h3>
+                      <p class="text-gray-300">{{ subject.currentScore }}</p>
                     </div>
                     <div>
-                      <h3 class="text-sm font-medium text-gray-500">目标分数</h3>
-                      <p>{{ subject.targetScore }}</p>
+                      <h3 class="text-sm font-medium text-gray-400">目标分数</h3>
+                      <p class="text-gray-300">{{ subject.targetScore }}</p>
                     </div>
                     <div>
-                      <h3 class="text-sm font-medium text-gray-500">难度</h3>
-                      <p>{{ subject.difficulty }}</p>
+                      <h3 class="text-sm font-medium text-gray-400">难度</h3>
+                      <p class="text-gray-300">{{ subject.difficulty }}</p>
                     </div>
                   </div>
                 </div>
               </div>
-              <div v-else class="text-gray-500">无科目信息</div>
+              <div v-else class="text-gray-400">无科目信息</div>
             </div>
 
-            <div class="mb-4 pb-4 border-b border-gray-200">
+            <div class="mb-4 pb-4 border-b border-gray-700">
               <h3 class="text-lg font-medium mb-2">偏好信息</h3>
               <div v-if="currentPost.preferences" class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <h3 class="text-sm font-medium text-gray-500">预算</h3>
-                  <p>{{ formatBudget(currentPost.preferences.budget) }}</p>
+                  <h3 class="text-sm font-medium text-gray-400">预算</h3>
+                  <p class="text-gray-300">{{ formatBudget(currentPost.preferences.budget) }}</p>
                 </div>
                 <div>
-                  <h3 class="text-sm font-medium text-gray-500">教学地点</h3>
-                  <p>{{ currentPost.preferences.teachingLocation || '未指定' }}</p>
+                  <h3 class="text-sm font-medium text-gray-400">教学地点</h3>
+                  <p class="text-gray-300">{{ currentPost.preferences.teachingLocation || '未指定' }}</p>
                 </div>
                 <div>
-                  <h3 class="text-sm font-medium text-gray-500">教师性别偏好</h3>
-                  <p>{{ currentPost.preferences.teacherGender || '无偏好' }}</p>
+                  <h3 class="text-sm font-medium text-gray-400">教师性别偏好</h3>
+                  <p class="text-gray-300">{{ currentPost.preferences.teacherGender || '无偏好' }}</p>
                 </div>
                 <div>
-                  <h3 class="text-sm font-medium text-gray-500">教学风格</h3>
-                  <p>{{ formatTeachingStyles(currentPost.preferences.teachingStyle) }}</p>
+                  <h3 class="text-sm font-medium text-gray-400">教学风格</h3>
+                  <p class="text-gray-300">{{ formatTeachingStyles(currentPost.preferences.teachingStyle) }}</p>
                 </div>
               </div>
-              <div v-else class="text-gray-500">无偏好信息</div>
+              <div v-else class="text-gray-400">无偏好信息</div>
             </div>
 
             <div v-if="currentPost.status === 'pending'" class="mt-4">
               <h3 class="text-lg font-medium mb-2">审核操作</h3>
               <div class="grid grid-cols-1 gap-3">
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">审核备注</label>
+                  <label class="block text-sm font-medium text-gray-300 mb-1">审核备注</label>
                   <textarea
                     v-model="reviewNote"
                     rows="3"
-                    class="w-full border border-gray-300 rounded-md px-3 py-2"
+                    class="w-full border border-gray-600 rounded-md px-3 py-2 bg-gray-700 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="请输入审核备注"
                   ></textarea>
                 </div>
@@ -320,16 +320,16 @@
     <!-- 删除确认弹窗 -->
     <div
       v-if="showDeleteConfirm"
-      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
     >
-      <div class="bg-white rounded-lg shadow-lg w-full max-w-md">
+      <div class="bg-gray-800 rounded-lg shadow-lg w-full max-w-md border border-gray-700">
         <div class="p-6">
-          <h2 class="text-xl font-bold mb-4">确认删除</h2>
-          <p class="mb-6">您确定要删除这个帖子吗？此操作无法撤销。</p>
+          <h2 class="text-xl font-bold mb-4 text-gray-200">确认删除</h2>
+          <p class="mb-6 text-gray-300">您确定要删除这个帖子吗？此操作无法撤销。</p>
           <div class="flex justify-end">
             <button
               @click="showDeleteConfirm = false"
-              class="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 mr-2"
+              class="bg-gray-700 text-gray-300 px-4 py-2 rounded-md hover:bg-gray-600 mr-2"
             >
               取消
             </button>
@@ -349,11 +349,10 @@
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue'
 import { useToast } from 'vue-toastification'
-import { usePostStore } from '@/stores/postStore'
 import AdminLayout from '../layouts/AdminLayout.vue'
 import PostItem from '../components/PostItem.vue'
-
-const postStore = usePostStore()
+import { usePostStore } from '@/stores/postStore'
+import { postService } from '@/services/postService'
 const toast = useToast()
 
 // 状态变量
@@ -439,42 +438,45 @@ async function loadPosts() {
   loading.value = true
   try {
     const params = {
-      page: filters.value.page,
-      limit: filters.value.limit,
+      page: pagination.value.page,
+      limit: pagination.value.limit,
       status: filters.value.status || '',
+      search: filters.value.search || '',
       sort: filters.value.sort || 'newest',
     }
 
-    let response = { status: 'error', message: '获取数据失败' }
+    console.log('[PostsView] 请求参数:', params)
     
-    try {
-      if (filters.value.city) {
-        response = await postStore.getPostsByCity(filters.value.city, params)
-      } else {
-        response = await postStore.fetchAllPosts(params)
-      }
-    } catch (err) {
-      console.error('调用 store 方法错误:', err)
+    let response
+    
+    if (filters.value.city) {
+      // 如果有城市筛选，使用城市筛选接口
+      response = await postStore.getPostsByCity(filters.value.city, params)
+    } else {
+      // 否则使用新的分页接口
+      response = await postService.getPostsByLimit(params)
     }
+    
+    console.log('[PostsView] API 原始响应数据:', response)
 
     if (response && response.status === 'success') {
-      posts.value = response.data.posts
-
-      if (response.data.pagination) {
-        pagination.value = response.data.pagination
-      } else if (response.data.total !== undefined) {
-        pagination.value = {
-          page: 1,
-          limit: filters.value.limit,
-          total: response.data.total,
-          pages: Math.ceil(response.data.total / filters.value.limit),
-        }
+      // 使用后端返回的数据
+      posts.value = response.data?.posts || []
+      
+      // 处理分页信息
+      if (response.pagination) {
+        pagination.value.total = response.pagination.total || 0
+        pagination.value.page = response.pagination.page || 1
+        pagination.value.limit = response.pagination.limit || 10
+        pagination.value.pages = response.pagination.pages || 1
+        
+        console.log('[PostsView] 分页信息:', pagination.value)
       }
     } else {
       toast.error(response?.message || '获取帖子列表失败')
     }
   } catch (error) {
-    console.error('加载帖子错误:', error)
+    console.error('[PostsView] 加载帖子错误:', error)
     toast.error('加载帖子时发生错误')
   } finally {
     loading.value = false
@@ -482,30 +484,27 @@ async function loadPosts() {
 }
 
 function resetFilters() {
+  // 重置筛选条件
   filters.value = {
-    page: 1,
-    limit: 20,
     status: '',
     sort: 'newest',
     city: '',
+    search: '',
   }
-
+  pagination.value.page = 1 // 重置到第一页
   loadPosts()
 }
 
 function changePage(page) {
-  if (page < 1 || page > pagination.value.pages || page === pagination.value.page) {
+  if (page < 1 || page > pagination.value.pages || pagination.value.page === page) {
     return
   }
 
-  filters.value.page = page
-
+  pagination.value.page = page
   loadPosts()
 
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth',
-  })
+  // 滚动到页面顶部
+  window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
 async function viewPostDetails(postId) {

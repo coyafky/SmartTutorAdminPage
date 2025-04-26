@@ -1,6 +1,6 @@
 <template>
   <div
-    class="teacher-item bg-white rounded-lg shadow-sm p-4 border border-gray-100 relative"
+    class="teacher-item bg-gray-800 rounded-lg shadow-md p-5 border border-gray-700 relative hover:shadow-lg transition-all duration-300"
   >
     <div class="absolute top-2 right-2 flex space-x-2">
       <StatusBadge :status="teacher.status || 'active'" />
@@ -11,49 +11,51 @@
     </div>
     <div class="flex justify-between">
       <div class="teacher-header">
-        <h3 class="text-lg font-medium text-gray-800">教师ID: {{ teacher.tutorId || teacher._id }}</h3>
-        <div class="flex items-center mt-1">
+        <h3 class="text-lg font-semibold text-gray-100">教师ID: {{ teacher.tutorId || teacher._id }}</h3>
+        <div class="flex items-center mt-2">
           <span 
-            class="ml-2 px-2 py-0.5 rounded-full text-xs"
-            :class="teacher.isVerified ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'"
+            class="ml-2 px-2 py-0.5 rounded-full text-xs font-medium"
+            :class="teacher.isVerified ? 'bg-green-700 text-green-100' : 'bg-yellow-700 text-yellow-100'"
           >
             {{ teacher.isVerified ? '已认证' : '未认证' }}
           </span>
-          <span class="text-gray-500 text-sm ml-2">{{ formatDate(teacher.createdAt) }}</span>
+          <span class="text-gray-400 text-sm ml-2">{{ formatDate(teacher.createdAt) }}</span>
         </div>
       </div>
-      <div class="teacher-actions flex space-x-2">
+      <div class="teacher-actions flex space-x-3">
         <router-link
           :to="`/teachers/${teacher.tutorId || teacher._id}`"
-          class="text-blue-600 hover:text-blue-800 transition-colors duration-200"
+          class="text-blue-400 hover:text-blue-300 transition-colors duration-200 flex items-center"
         >
+          <span class="material-icons-outlined text-sm mr-1">visibility</span>
           查看详情
         </router-link>
         <router-link
           :to="`/teachers/${teacher.tutorId || teacher._id}/verification`"
-          class="text-green-600 hover:text-green-800 transition-colors duration-200"
+          class="text-green-400 hover:text-green-300 transition-colors duration-200 flex items-center"
         >
+          <span class="material-icons-outlined text-sm mr-1">verified</span>
           {{ teacher.isVerified ? '更新认证' : '认证教师' }}
         </router-link>
       </div>
     </div>
 
-    <div class="teacher-content mt-3 grid grid-cols-2 gap-x-4 gap-y-2">
+    <div class="teacher-content mt-4 grid grid-cols-2 gap-x-4 gap-y-3">
       <div class="flex items-center">
-        <span class="text-gray-500 mr-2">姓名:</span>
-        <span class="text-gray-800">{{ formatName(teacher) }}</span>
+        <span class="text-gray-400 mr-2 font-medium">姓名:</span>
+        <span class="text-gray-200">{{ formatName(teacher) }}</span>
       </div>
       <div class="flex items-center">
-        <span class="text-gray-500 mr-2">地区:</span>
-        <span class="text-gray-800">{{ formatLocation(teacher) }}</span>
+        <span class="text-gray-400 mr-2 font-medium">地区:</span>
+        <span class="text-gray-200">{{ formatLocation(teacher) }}</span>
       </div>
       <div class="flex items-center">
-        <span class="text-gray-500 mr-2">科目:</span>
-        <span class="text-gray-800">{{ formatSubjects(teacher) }}</span>
+        <span class="text-gray-400 mr-2 font-medium">科目:</span>
+        <span class="text-gray-200">{{ formatSubjects(teacher) }}</span>
       </div>
       <div class="flex items-center">
-        <span class="text-gray-500 mr-2">注册时间:</span>
-        <span class="text-gray-800">{{ formatDate(teacher.createdAt) }}</span>
+        <span class="text-gray-400 mr-2 font-medium">注册时间:</span>
+        <span class="text-gray-200">{{ formatDate(teacher.createdAt) }}</span>
       </div>
     </div>
   </div>
@@ -61,7 +63,6 @@
 
 <script setup>
 import StatusBadge from './StatusBadge.vue'
-import { useRouter } from 'vue-router'
 
 defineProps({
   teacher: {
@@ -140,6 +141,11 @@ function formatSubjects(teacher) {
 
 <style scoped>
 .teacher-item {
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+}
+
+.teacher-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
 }
 </style>

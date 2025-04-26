@@ -2,23 +2,21 @@
   <AdminLayout>
     <div class="container mx-auto">
       <h1 class="text-2xl font-bold mb-6">管理员仪表盘</h1>
-      
-      <!-- 统计卡片 -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <div class="stats shadow">
-          <div class="stat">
-            <div class="stat-figure text-primary">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
-            </div>
-            <div class="stat-title">总用户数</div>
-            <div class="stat-value text-primary">{{ stats.totalUsers }}</div>
-            <div class="stat-desc">↗︎ 增长 {{ stats.userGrowth }}%</div>
+      <!-- 用户统计卡片 -->
+      <div class="stats shadow mb-8">
+        <div class="stat">
+          <div class="stat-figure text-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M9 12a4 4 0 100-8 4 4 0 000 8zm6 8a6 6 0 00-12 0v2h12v-2z" />
+            </svg>
           </div>
+          <div class="stat-title">总用户数</div>
+          <div class="stat-value text-primary">{{ userResData.totalUsers }}</div>
+          <div class="stat-desc">今日新增 {{ userResData.newUsersToday }}</div>
         </div>
-        
-        <div class="stats shadow">
+      </div>
+      <div class="stats shadow">
           <div class="stat">
             <div class="stat-figure text-secondary">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -26,8 +24,8 @@
               </svg>
             </div>
             <div class="stat-title">教师数量</div>
-            <div class="stat-value text-secondary">{{ stats.totalTeachers }}</div>
-            <div class="stat-desc">↗︎ 增长 {{ stats.teacherGrowth }}%</div>
+            <div class="stat-value text-secondary">{{ tutorResData.totalTutors }}</div>
+            
           </div>
         </div>
         
@@ -39,8 +37,7 @@
               </svg>
             </div>
             <div class="stat-title">帖子数量</div>
-            <div class="stat-value text-accent">{{ stats.totalPosts }}</div>
-            <div class="stat-desc">↗︎ 增长 {{ stats.postGrowth }}%</div>
+            <div class="stat-value text-accent">{{ postResData.totalPosts }}</div>
           </div>
         </div>
         
@@ -52,11 +49,11 @@
               </svg>
             </div>
             <div class="stat-title">成功匹配</div>
-            <div class="stat-value text-info">{{ stats.totalMatches }}</div>
-            <div class="stat-desc">↗︎ 增长 {{ stats.matchGrowth }}%</div>
+            <div class="stat-value text-info">{{ matchResData.totalMatches }}</div>
           </div>
         </div>
-      </div>
+        </div>
+     
       
       <!-- 待处理事项 -->
       <div class="mb-8">
@@ -119,32 +116,26 @@
                 <th>ID</th>
                 <th>用户名</th>
                 <th>角色</th>
-                <th>注册时间</th>
                 <th>状态</th>
-                <th>操作</th>
+              
               </tr>
             </thead>
             <tbody>
-              <tr v-for="user in recentUsers" :key="user.id">
-                <td>{{ user.id }}</td>
+              <tr v-for="user in recentUsers" :key="user._id">
+                <td>{{ user.customId }}</td>
                 <td>{{ user.username }}</td>
                 <td>
                   <div class="badge" :class="getRoleBadgeClass(user.role)">
-                    {{ getRoleLabel(user.role) }}
+                    {{ user.role }}
                   </div>
                 </td>
-                <td>{{ formatDate(user.createdAt) }}</td>
+              
                 <td>
                   <div class="badge" :class="getStatusBadgeClass(user.status)">
-                    {{ getStatusLabel(user.status) }}
+                    {{user.status }}
                   </div>
                 </td>
-                <td>
-                  <div class="flex gap-2">
-                    <button class="btn btn-xs btn-outline btn-info">查看</button>
-                    <button class="btn btn-xs btn-outline btn-warning">编辑</button>
-                  </div>
-                </td>
+               
               </tr>
             </tbody>
           </table>
@@ -233,20 +224,56 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import AdminLayout from '../layouts/AdminLayout.vue'
 
-// 模拟数据 - 实际项目中应该从API获取
-const stats = ref({
-  totalUsers: 1248,
-  userGrowth: 12,
-  totalTeachers: 356,
-  teacherGrowth: 8,
-  totalPosts: 2789,
-  postGrowth: 15,
-  totalMatches: 987,
-  matchGrowth: 24
+import { computed, ref , onMounted } from 'vue'
+
+import AdminLayout from '../layouts/AdminLayout.vue'
+import { getUserStatistics, getTutorStatistics, getPostStatistics, getMatchStatistics } from '@/services/statisticsService'
+import { useUserStatisticsStore } from '@/stores/userStatisticsStore'
+import { getRecentUsers } from '@/services/statisticsService'
+const userStats = useUserStatisticsStore()
+
+const userResData = ref({})
+const tutorResData = ref({})
+const postResData = ref({})
+const matchResData = ref({})
+const recentUsers = ref([])
+
+
+onMounted(async () => {
+  const userRes = await getUserStatistics()
+  console.log('获取用户统计数据:', userRes)
+  console.log(userRes.data);
+  console.log(userRes.data.totalUsers);
+  console.log(userRes.data.newUsersToday);
+  userResData.value = userRes.data
+  
+  const tutorRes = await getTutorStatistics()
+  console.log('获取教师统计数据:', tutorRes)
+  console.log(tutorRes.data);
+  tutorResData.value = tutorRes.data
+
+  const postRes = await getPostStatistics()
+  console.log('获取帖子统计数据:', postRes)
+  postResData.value = postRes.data
+  const matchRes = await getMatchStatistics()
+  console.log('获取匹配统计数据:', matchRes)
+  matchResData.value = matchRes.data
+  // 你可以在这里处理响应结果，如赋值到
+  //  ref/computed 变量用于页面展示
 })
+
+onMounted(async () => {
+  const response = await getRecentUsers()
+  console.log('获取最新的用户列表:', response)
+  // response.data.data 才是你要的用户数组
+  recentUsers.value = response.data
+  console.log('recentUsers.value:', recentUsers.value)
+  
+})
+
+console.log(recentUsers.value);
+
 
 const pendingItems = ref({
   teacherVerifications: 15,
@@ -254,43 +281,7 @@ const pendingItems = ref({
   postReviews: 23
 })
 
-const recentUsers = ref([
-  {
-    id: 'USER_20250326001',
-    username: '张小明',
-    role: 'parent',
-    createdAt: '2025-03-26T10:25:32',
-    status: 'active'
-  },
-  {
-    id: 'TEACHER_20250325003',
-    username: '李老师',
-    role: 'teacher',
-    createdAt: '2025-03-25T15:42:18',
-    status: 'pending'
-  },
-  {
-    id: 'USER_20250325002',
-    username: '王家长',
-    role: 'parent',
-    createdAt: '2025-03-25T14:18:45',
-    status: 'active'
-  },
-  {
-    id: 'ADMIN_20250324001',
-    username: '管理员小张',
-    role: 'admin',
-    createdAt: '2025-03-24T09:05:12',
-    status: 'active'
-  },
-  {
-    id: 'TEACHER_20250323005',
-    username: '赵教师',
-    role: 'teacher',
-    createdAt: '2025-03-23T16:37:29',
-    status: 'active'
-  }
-])
+
 
 const systemInfo = ref({
   cpu: 32,

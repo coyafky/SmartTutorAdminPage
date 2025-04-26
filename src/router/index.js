@@ -70,11 +70,30 @@ const router = createRouter({
       component: () => import('../views/TeacherVerificationView.vue'),
       meta: { requiresAuth: true }
     },
+    // 家长管理路由
+    {
+      path: '/parents',
+      name: 'parents',
+      component: () => import('../views/ParentsView.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/parents/:id',
+      name: 'parent-detail',
+      component: () => import('../views/ParentDetailView.vue'),
+      meta: { requiresAuth: true }
+    },
     // 内容管理路由
     {
       path: '/posts',
       name: 'posts',
       component: () => import('../views/PostsView.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/posts/:id',
+      name: 'post-detail',
+      component: () => import('../views/PostDetailView.vue'),
       meta: { requiresAuth: true }
     },
     {
