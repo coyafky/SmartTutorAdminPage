@@ -2,8 +2,8 @@ import axios from 'axios'
 
 // 创建 axios 实例
 const api = axios.create({
-  // 使用完整的后端URL直接访问，不通过代理
-  baseURL: 'https://smart-tutor-server-seven.vercel.app/api',
+  // 使用环境变量配置后端URL，支持不同部署环境
+  baseURL: import.meta.env.VITE_API_URL || 'https://smart-tutor-server-seven.vercel.app/api',
   timeout: 15000, // 超时时间
   headers: {
     'Content-Type': 'application/json',
